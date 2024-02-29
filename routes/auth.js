@@ -35,7 +35,7 @@ router.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const user = new User({
             username: req.body.username,
-            password: hashedPassword, // Corrected to use hashedPassword
+            password: hashedPassword, 
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
@@ -46,7 +46,7 @@ router.post('/register', async (req, res) => {
         });
         await user.save();
 
-        // Automatically log in the user after registration
+        
         req.session.userId = user._id;
         req.session.role = user.role;
 
@@ -55,7 +55,6 @@ router.post('/register', async (req, res) => {
             to: user.email,
             subject: 'Welcome to Our App!',
             text: `Hello ${user.firstName}!\n\nWelcome to Our App. We're glad to have you with us.`,
-            // You can also use `html` key to send HTML formatted emails
         };
 
         transporter.sendMail(mailOptions, function(error, info){
@@ -80,7 +79,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-         const user = await User.findOne({ email: req.body.email });
+        const user = await User.findOne({ email: req.body.email });
         if (!user) {
             return res.render('login', { errorMessage: 'No account found with that email. Please register.' });
         }
@@ -91,13 +90,13 @@ router.post('/login', async (req, res) => {
                 id: user._id,
                 username: user.username,
                 email: user.email,
-                isAdmin: user.username === ADMIN_USERNAME && user.email === ADMIN_EMAIL
+                isAdmin: user.role === 'admin'
             };
             res.redirect('/main');
         } else {
             res.render('login', { errorMessage: 'Incorrect password.' });
         }
-     } catch (error) {
+    } catch (error) {
         console.error(error);
         res.render('login', { errorMessage: 'An error occurred during login.' });
     }
@@ -116,4 +115,5 @@ router.get('/logout', (req, res) => {
 });
 
 module.exports = router;
+
 
