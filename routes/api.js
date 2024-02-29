@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
   const apiUrl = `http://makeup-api.herokuapp.com/api/v1/products.json?brand=nyx&product_type=${encodeURIComponent(searchQuery)}`;
 
   try {
-    const products = await fetchData(apiUrl); // Since fetchData already parses JSON
+    const products = await fetchData(apiUrl); 
     const filteredProducts = products.filter(product => product.image_link && product.product_link);
     res.render('makeup-products', { products: filteredProducts });
   } catch (error) {
@@ -47,8 +47,8 @@ const categoryMap = {
 };
 
 router.post('/salons', async (req, res) => {
-  const userSearch = req.body.category.toLowerCase(); // "nails", "makeup", or "hair"
-  const yelpCategory = categoryMap[userSearch] || 'beautysvc'; // Default to general beauty service
+  const userSearch = req.body.category.toLowerCase(); 
+  const yelpCategory = categoryMap[userSearch] || 'beautysvc'; 
 
   const url = `https://api.yelp.com/v3/businesses/search?location=New York&categories=${yelpCategory}&limit=9`;
 
@@ -60,15 +60,15 @@ router.post('/salons', async (req, res) => {
   };
 
   try {
-    const data = await fetchData(url, options); // fetchData uses axios and returns response.data
+    const data = await fetchData(url, options); 
     const salons = data.businesses.map(business => ({
       name: business.name,
       image_url: business.image_url,
       url: business.url,
       rating: business.rating,
-      address: business.location.display_address.join(', '), // Joining address parts
-      services: business.categories.map(category => category.title).join(', '), // Assuming services can be inferred from categories
-      coordinates: business.coordinates // For mapping purposes
+      address: business.location.display_address.join(', '), 
+      services: business.categories.map(category => category.title).join(', '), 
+      coordinates: business.coordinates 
     }));
     res.render('api2', { salons });
   } catch (error) {
@@ -79,18 +79,16 @@ router.post('/salons', async (req, res) => {
 
 
 //cbaceb99cefe40acba91f7504ef24af0
-const NEWS_API_KEY = 'cbaceb99cefe40acba91f7504ef24af0'; // Replace with your NewsAPI key
+const NEWS_API_KEY = 'cbaceb99cefe40acba91f7504ef24af0'; 
 const BASE_URL = 'https://newsapi.org/v2/everything';
 
 async function fetchBeautyNews(query) {
-  // Encode the query for URL and prepare the API request URL
   const url = `${BASE_URL}?q="${encodeURIComponent(query)}"&sortBy=popularity&apiKey=${NEWS_API_KEY}`;
 
   try {
     const response = await axios.get(url);
     const articles = response.data.articles;
 
-    // Filter articles to include only those where the title contains the query term
     const filteredArticles = articles.filter(article => article.title.toLowerCase().includes(query.toLowerCase()));
 
     return filteredArticles;
@@ -105,9 +103,9 @@ router.get('/beauty-news', (req, res) => {
 });
 
 router.post('/beauty-news', async (req, res) => {
-  const query = req.body.search; // Grabbing the search term from the form submission
-  const articles = await fetchBeautyNews(query); // Fetching and filtering the articles
-  res.render('beauty-news', { articles }); // Rendering the page with filtered articles
+  const query = req.body.search; 
+  const articles = await fetchBeautyNews(query); 
+  res.render('beauty-news', { articles }); 
 });
 
 module.exports = router;
