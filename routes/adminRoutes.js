@@ -10,7 +10,6 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-// Adjusted to match the expected admin path
 router.post('/admin/carousel', isAuthenticated, async (req, res) => {
   try {
     const newItem = new CarouselItem({
