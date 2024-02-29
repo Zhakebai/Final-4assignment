@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff; /* White background */
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 20px;
+      background-color: #ffecef; /* Light pink background */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .navbar a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #d63384; /* Bootstrap pink */
+      font-weight: bold;
+    }
+    h1 {
+      color: #d63384; /* Bootstrap pink */
+      text-align: center;
+      padding: 20px 0;
+    }
+/* Search section styling */
+.search form {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.search input[type="text"] {
+    border: 2px solid #d63384; /* Pink border for input */
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    width: 50%; /* Adjust as necessary */
+    max-width: 300px; /* Ensures the input isn't too wide on larger screens */
+}
+
+.search button {
+    background-color: #d63384; /* Pink background for the button */
+    color: white; /* White text */
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.search button:hover {
+    background-color: #c1275d; /* Darker pink on hover */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap to the next line */
+    justify-content: space-around; /* Evenly spaces the cards with space around them */
+    gap: 1rem; /* Adds gap between cards */
+}
+
+/* Card styling for consistent sizing */
+.container .card {
+    flex: 0 1 calc(33.333% - 1rem); /* Allows the card to grow and shrink but with a base width */
+    /* Adjust the calc() expression as needed to account for the gap */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s; 
+    margin-bottom: 2rem; /* Space below each card (if you have more rows) */
+    border-radius: 0.5rem;
+    background-color: white;
+    padding: 1rem;
+}
+
+.container .card:hover {
+    transform: translateY(-5px); /* Slight raise effect on hover */
+}
+/* Adjustments for images and content within cards */
+.container .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem; /* Adjust if you want rounded corners for images */
+}
+
+.container .card-content h3, .container .card-content p, .container .card-content a {
+    text-align: center; /* Center-aligns the text and links */
+    margin: 0.5rem 0;
+    color: #343a40;
+}
+
+.container .card-content a {
+    display: inline-block;
+    background-color: #d63384; /* Pink background for links/buttons */
+    color: white; /* White text */
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    text-decoration: none; /* Remove underline from links */
+    border-radius: 0.25rem; /* Rounded corners for links/buttons */
+}
+
+.container .card-content a:hover {
+    background-color: #c1275d; /* Darker pink on hover */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 992px) {
+    .container .card {
+        flex: 0 1 calc(50% - 1rem); /* Adjust to show 2 cards per row on medium devices */
+    }
+}
+
+@media (max-width: 768px) {
+    .container .card {
+        flex: 0 1 calc(100% - 1rem); /* Adjust to show 1 card per row on small devices */
+    }
+}
+
+</style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/main">Main</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-link" href="/makeup-products">API1</a>
+          <a class="nav-link" href="/api/salons">API2</a>
+          <a class="nav-link" href="/api/beauty-news">API3</a>
+          <a class="nav-link" href="/logout">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <h1 style="text-align: center;">Find Beauty Salons</h1>
+  <div class="search">
+  <form action="/api/salons" method="POST">
+    <input type="text" name="category" placeholder="Enter category (e.g., nails, hair)" required>
+    <button type="submit">Search</button>
+</form>
+</div>
+
+    <div class="container">
+        <% if (salons) { %>
+            <% salons.forEach(salon => { %>
+              <div class="card">
+                <img src="<%= salon.image_url %>" alt="<%= salon.name %>">
+                <div class="card-content">
+                  <h3><%= salon.name %></h3>
+                  <p>Rating: <%= salon.rating %></p>
+                  <p>Services: <%= salon.services %></p>
+                  <p>Address: <%= salon.address %></p>
+                  <!-- Google Maps link -->
+                  <p><a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(salon.coordinates.latitude + ',' + salon.coordinates.longitude) %>" target="_blank">View on Map</a></p>
+                  <p><a href="<%= salon.url %>" target="_blank">Book Now</a></p>
+                </div>
+              </div>
+            <% }) %>
+        <% } else { %>
+            <p>No salons found. Try a different category.</p>
+        <% } %>
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
