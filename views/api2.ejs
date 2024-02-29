@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #fff; /* White background */
+      background-color: #fff; 
       margin: 0;
       padding: 0;
     }
@@ -15,108 +15,117 @@
       display: flex;
       justify-content: flex-end;
       padding: 10px 20px;
-      background-color: #ffecef; /* Light pink background */
+      background-color: #ffecef; 
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .navbar a {
       margin-left: 15px;
       text-decoration: none;
-      color: #d63384; /* Bootstrap pink */
+      color: #d63384; 
       font-weight: bold;
     }
     h1 {
-      color: #d63384; /* Bootstrap pink */
+      color: #d63384; 
       text-align: center;
       padding: 20px 0;
     }
-/* Search section styling */
+
 .search form {
     text-align: center;
     margin: 2rem 0;
 }
 
 .search input[type="text"] {
-    border: 2px solid #d63384; /* Pink border for input */
+    border: 2px solid #d63384; 
     padding: 0.5rem;
     margin-right: 0.5rem;
-    width: 50%; /* Adjust as necessary */
-    max-width: 300px; /* Ensures the input isn't too wide on larger screens */
+    width: 50%; 
+    max-width: 300px; 
 }
 
 .search button {
-    background-color: #d63384; /* Pink background for the button */
-    color: white; /* White text */
+    background-color: #d63384; 
+    color: white; 
     border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth background transition */
+    transition: background-color 0.3s; 
 }
 
 .search button:hover {
-    background-color: #c1275d; /* Darker pink on hover */
+    background-color: #c1275d; 
 }
 
 .container {
     display: flex;
-    flex-wrap: wrap; /* Allows cards to wrap to the next line */
-    justify-content: space-around; /* Evenly spaces the cards with space around them */
-    gap: 1rem; /* Adds gap between cards */
+    flex-wrap: wrap; 
+    justify-content: space-around;
+    gap: 1rem; 
 }
 
-/* Card styling for consistent sizing */
 .container .card {
-    flex: 0 1 calc(33.333% - 1rem); /* Allows the card to grow and shrink but with a base width */
-    /* Adjust the calc() expression as needed to account for the gap */
+    flex: 0 1 calc(33.333% - 1rem); 
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.2s; 
-    margin-bottom: 2rem; /* Space below each card (if you have more rows) */
+    margin-bottom: 2rem; 
     border-radius: 0.5rem;
     background-color: white;
     padding: 1rem;
 }
 
 .container .card:hover {
-    transform: translateY(-5px); /* Slight raise effect on hover */
+    transform: translateY(-5px);
 }
-/* Adjustments for images and content within cards */
 .container .card img {
     width: 100%;
     height: auto;
-    border-radius: 0.5rem; /* Adjust if you want rounded corners for images */
+    border-radius: 0.5rem;
 }
 
 .container .card-content h3, .container .card-content p, .container .card-content a {
-    text-align: center; /* Center-aligns the text and links */
+    text-align: center; 
     margin: 0.5rem 0;
     color: #343a40;
 }
 
 .container .card-content a {
     display: inline-block;
-    background-color: #d63384; /* Pink background for links/buttons */
-    color: white; /* White text */
+    background-color: #d63384;
+    color: white; 
     padding: 0.5rem 1rem;
     margin-top: 0.5rem;
-    text-decoration: none; /* Remove underline from links */
-    border-radius: 0.25rem; /* Rounded corners for links/buttons */
+    text-decoration: none; 
+    border-radius: 0.25rem;
 }
 
 .container .card-content a:hover {
-    background-color: #c1275d; /* Darker pink on hover */
+    background-color: #c1275d; 
 }
 
-/* Responsive adjustments for smaller screens */
 @media (max-width: 992px) {
     .container .card {
-        flex: 0 1 calc(50% - 1rem); /* Adjust to show 2 cards per row on medium devices */
+        flex: 0 1 calc(50% - 1rem); 
     }
 }
 
 @media (max-width: 768px) {
     .container .card {
-        flex: 0 1 calc(100% - 1rem); /* Adjust to show 1 card per row on small devices */
+        flex: 0 1 calc(100% - 1rem);
     }
 }
+
+.footer {
+      width: 100%;
+      padding: 10px 0;
+      background-color: #f8f9fa;
+      border-top: 1px solid #dee2e6;
+      text-align: center;
+      color: #d63384;
+      font-size: 18px;
+      font-weight: bold;
+      position: absolute; 
+      bottom: 0;
+    }
 
 </style>
 </head>
@@ -156,7 +165,7 @@
                   <p>Rating: <%= salon.rating %></p>
                   <p>Services: <%= salon.services %></p>
                   <p>Address: <%= salon.address %></p>
-                  <!-- Google Maps link -->
+                  
                   <p><a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(salon.coordinates.latitude + ',' + salon.coordinates.longitude) %>" target="_blank">View on Map</a></p>
                   <p><a href="<%= salon.url %>" target="_blank">Book Now</a></p>
                 </div>
@@ -166,6 +175,11 @@
             <p>No salons found. Try a different category.</p>
         <% } %>
     </div>
+
+    <footer class="footer">
+      Zhanerke Bekbolat <br>
+      IT-2204
+    </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
