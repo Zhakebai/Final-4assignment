@@ -81,6 +81,7 @@ Modify carousel items (add, edit, delete).
 ![image](https://github.com/user-attachments/assets/2f76823a-5d93-4f44-a51b-3ec21e3e94c9)
 
 ## Admin Panel (Managing Carousel)
+![image](https://github.com/user-attachments/assets/e66ec0fe-8f50-4a72-880d-0a09d3337555)
 [image](https://github.com/user-attachments/assets/c1fe0afc-7d1f-479c-8588-52d51e44f443)
 ![image](https://github.com/user-attachments/assets/4c88e363-45dd-4605-afab-7d85f890d3c4)
 ![image](https://github.com/user-attachments/assets/68608548-c6b0-47a1-8124-7b07cdda303b)
